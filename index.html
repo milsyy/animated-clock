@@ -4,11 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="script.js" defer></script>
-
+    <link rel="stylesheet" href="style.css" />
     <title>Animated Clock</title>
   </head>
   <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <h1>Clock Style</h1>
+    <form>
+      <div class="form-input">
+        <label>Face Colour</label>
+        <input type="color" value="#f4f4f4" id="faceColour" />
+      </div>
+      <div class="form-input">
+        <label>Border Colour</label>
+        <input type="color" value="#800000" id="borderColour" />
+      </div>
+      <div class="form-input">
+        <label>Number Lines Colour</label>
+        <input type="color" value="#000000" id="numberLinesColour" />
+      </div>
+      <div class="form-input">
+        <label>Large Hands Colour</label>
+        <input type="color" value="#800000" id="largeHandsColour" />
+      </div>
+      <div class="form-input">
+        <label>Second Hand Colour</label>
+        <input type="color" value="#f56f3b" id="secondHandColour" />
+      </div>
+    </form>
+    <script src="script.js" defer></script>
   </body>
 </html>
