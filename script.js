@@ -30,7 +30,7 @@ const clock = () => {
   ctx.strokeStyle = borderColour.value;
   ctx.arc(0, 0, 142, 0, Math.PI * 2, true);
   ctx.stroke(); // outline appears thinner due to the fill being on top of the stroke, call fill first to avoid this
-  ctx.fillStyle = faceColour.value;
+  ctx.fillStyle = styles.faceColour;
   ctx.fill();
 
   ctx.restore();
@@ -41,7 +41,7 @@ const clock = () => {
   for (let i = 0; i < 12; i++) {
     ctx.beginPath();
     ctx.rotate(Math.PI / 6);
-    ctx.strokeStyle = numberLinesColour.value;
+    ctx.strokeStyle = styles.numberLinesColour;
     ctx.moveTo(105, 0);
     ctx.lineTo(125, 0);
     ctx.stroke();
@@ -57,7 +57,7 @@ const clock = () => {
       ctx.beginPath();
       ctx.moveTo(122, 0);
       ctx.lineTo(125, 0);
-      ctx.strokeStyle = numberLinesColour.value;
+      ctx.strokeStyle = styles.numberLinesColour;
       ctx.stroke();
     }
     ctx.rotate(Math.PI / 30);
@@ -76,7 +76,7 @@ const clock = () => {
   ctx.beginPath();
   ctx.rotate((Math.PI / 6) * hr + (Math.PI / 360) * min) +
     (Math.PI / 21600) * sec;
-  ctx.strokeStyle = largeHandsColour.value;
+  ctx.strokeStyle = styles.largeHandsColour;
   ctx.lineWidth = 14;
   ctx.moveTo(-20, 0);
   ctx.lineTo(80, 0);
@@ -89,7 +89,7 @@ const clock = () => {
 
   ctx.beginPath();
   ctx.rotate((Math.PI / 30) * min) + (Math.PI / 360) * sec;
-  ctx.strokeStyle = largeHandsColour.value;
+  ctx.strokeStyle = styles.largeHandsColour;
   ctx.lineWidth = 10;
   ctx.moveTo(-20, 0);
   ctx.lineTo(113, 0);
@@ -119,7 +119,7 @@ const clock = () => {
   styles.numberLinesColour = numberLinesColour.value;
   styles.largeHandsColour = largeHandsColour.value;
   styles.secondHandColour = secondHandColour.value;
-  saveStyles();
+  localStorage.setItem("clockStyles", JSON.stringify(styles));
 
   requestAnimationFrame(clock);
 };
@@ -133,14 +133,12 @@ document.getElementById("save-img").addEventListener("click", () => {
   link.click();
 });
 
-const saveStyles = () => {
-  localStorage.setItem("clockStyles", JSON.stringify(styles));
-};
-
 window.addEventListener("DOMContentLoaded", () => {
-  faceColour.value = styles.faceColour;
-  borderColour.value = styles.borderColour;
-  numberLinesColour.value = styles.numberLinesColour;
-  largeHandsColour.value = styles.largeHandsColour;
-  secondHandColour.value = styles.secondHandColour;
+  if (Object.keys(styles).length !== 0) {
+    faceColour.value = styles.faceColour;
+    borderColour.value = styles.borderColour;
+    numberLinesColour.value = styles.numberLinesColour;
+    largeHandsColour.value = styles.largeHandsColour;
+    secondHandColour.value = styles.secondHandColour;
+  }
 });
