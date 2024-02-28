@@ -1,12 +1,14 @@
+const canvas = document.getElementById("canvas");
+const styles = JSON.parse(localStorage.getItem("clockStyles")) || {};
+const faceColour = document.getElementById("faceColour");
+const borderColour = document.getElementById("borderColour");
+const numberLinesColour = document.getElementById("numberLinesColour");
+const largeHandsColour = document.getElementById("largeHandsColour");
+const secondHandColour = document.getElementById("secondHandColour");
+
 const clock = () => {
   const now = new Date();
-  const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
-  const faceColour = document.getElementById("faceColour");
-  const borderColour = document.getElementById("borderColour");
-  const numberLinesColour = document.getElementById("numberLinesColour");
-  const largeHandsColour = document.getElementById("largeHandsColour");
-  const secondHandColour = document.getElementById("secondHandColour");
 
   // Setup canvas
   ctx.save(); // Save default state
@@ -99,11 +101,11 @@ const clock = () => {
   ctx.save();
 
   ctx.beginPath();
-  ctx.fillStyle = secondHandColour.value;
+  ctx.fillStyle = styles.secondHandColour;
   ctx.arc(0, 0, 7, 0, Math.PI * 2, true);
   ctx.fill();
   ctx.rotate((Math.PI / 30) * sec);
-  ctx.strokeStyle = secondHandColour.value;
+  ctx.strokeStyle = styles.secondHandColour;
   ctx.lineWidth = 6;
   ctx.moveTo(-20, 0);
   ctx.lineTo(115, 0);
@@ -112,7 +114,34 @@ const clock = () => {
 
   ctx.restore(); // Restore default state
 
+  styles.faceColour = faceColour.value;
+  styles.borderColour = borderColour.value;
+  styles.numberLinesColour = numberLinesColour.value;
+  styles.largeHandsColour = largeHandsColour.value;
+  styles.secondHandColour = secondHandColour.value;
+  saveStyles();
+
   requestAnimationFrame(clock);
 };
 
 requestAnimationFrame(clock);
+
+document.getElementById("save-img").addEventListener("click", () => {
+  const dataURL = canvas.toDataURL("image/png");
+  const link = document.createElement("a");
+  link.download = "clock.png";
+  link.href = dataURL;
+  link.click();
+});
+
+const saveStyles = () => {
+  localStorage.setItem("clockStyles", JSON.stringify(styles));
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  faceColour.value = styles.faceColour;
+  borderColour.value = styles.borderColour;
+  numberLinesColour.value = styles.numberLinesColour;
+  largeHandsColour.value = styles.largeHandsColour;
+  secondHandColour.value = styles.secondHandColour;
+});
