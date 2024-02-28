@@ -127,10 +127,9 @@ const clock = () => {
 requestAnimationFrame(clock);
 
 document.getElementById("save-img").addEventListener("click", () => {
-  const dataURL = canvas.toDataURL("image/png");
   const link = document.createElement("a");
   link.download = "clock.png";
-  link.href = dataURL;
+  link.href = canvas.toDataURL("image/png");
   link.click();
 });
 
