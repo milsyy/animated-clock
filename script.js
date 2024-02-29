@@ -88,7 +88,7 @@ const clock = () => {
   ctx.save();
 
   ctx.beginPath();
-  ctx.rotate((Math.PI / 30) * min) + (Math.PI / 360) * sec;
+  ctx.rotate((Math.PI / 30) * min + (Math.PI / 360) * sec);
   ctx.strokeStyle = styles.largeHandsColour;
   ctx.lineWidth = 10;
   ctx.moveTo(-20, 0);
